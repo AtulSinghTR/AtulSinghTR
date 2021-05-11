@@ -38,7 +38,7 @@ for i in range(10_1000):
 print('zero:',str(zero))
 print('one:',str(one))
 
-# probabulity based flipping coin
+# probability based flipping coin
 zero=0
 one=0
 for i in range(10_1000):  
@@ -51,7 +51,7 @@ print('zero:',str(zero))
 print('one:',str(one))
 
 
-# probabulity based flipping coin
+# probability based flipping coin
 zero=0
 one=0
 for i in range(10_1000):  
