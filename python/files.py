@@ -103,3 +103,61 @@ src = new_dir / 'tmp-dir'
 dst = new_dir / 'temp-dir'
 
 src.replace(dst)
+
+
+# Deleting files/folders
+# use unlink() method
+
+file = new_dir / 'program1.py'
+print(file.exists())
+file.unlink(missing_ok=True)  # if file is missing, it's ok
+print(file.exists())
+
+# To delete a folder use rmdir() method but dir should be empty before
+
+del_dir = new_dir / 'folder_a'
+try:
+  del_dir.rmdir()
+except Exception as e:
+  print(f"Dir Deletion Error - {e}")
+  
+for file in list(del_dir.rglob('*.*')):  # search all file with extension
+  file.unlink(missing_ok=True)
+for dir in  list(del_dir.rglob('*')):   # after deleting all files, deleting child directory
+  dir.rmdir() 
+del_dir.rmdir()                         # deleting parent dir
+
+
+# this all can be done easily via a library shutil
+del_dir = new_dir / 'temp-dir'
+
+import shutil 
+shutil.rmtree(del_dir)  
+
+
+#------------- 
+
+new_dir = cur_dir / 'tmp'  
+paths = [
+new_dir / "img1.jpg",
+new_dir / "img2.gif",
+new_dir / "folder_a" / "img3.png",
+new_dir / "folder_a" / "folder_b" / "img4.jpg",
+]
+
+# Creating all the files and folders
+for path in paths:
+  path.parent.mkdir(exist_ok=True, parents=True)
+  path.touch()
+  
+img_dir = new_dir / 'img'
+img_dir.mkdir(exist_ok=True, parents=True)
+
+for file in new_dir.rglob('*.*'):
+  file_name = file.name
+  out_file = img_dir / file_name
+  file.replace(out_file)
+  
+
+# Deleting the folder structure
+shutil.rmtree(new_dir)  
